@@ -1,8 +1,10 @@
+#! /usr/bin/env node
+
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers'; // this is needed for ES6 imports for yargs
 
-import { generateReport } from './src/generateReport.js';
-import { displayResults } from './src/displayResults.js';
+import { generateReport } from '../src/generateReport.js';
+import { displayResults } from '../src/displayResults.js';
 
 const main = async () => {
   const argv = yargs(hideBin(process.argv))
