@@ -6,7 +6,7 @@ This is a command-line tool that generates web accessibility reports for a singl
 
 Before running the tool, make sure you have the following dependencies installed:
 
-- Node.js (version 12 or above)
+- Node.js (version 20 or above)
 - npm (Node Package Manager)
 
 ## Installation
