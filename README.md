@@ -21,10 +21,20 @@ Before running the tool, make sure you have the following dependencies installed
 
 ## Usage
 
+### From package
+
 To run the Web Accessibility Report Generator, use the following command:
 
 ```bash
-node index.js [options]
+scanner [options]
+```
+
+### Development
+
+To run the Web Accessibility Report Generator, use the following command:
+
+```bash
+node bin/index.js [options]
 ```
 
 ### Options
@@ -37,13 +47,13 @@ node index.js [options]
 - Generate a report for a single URL:
 
   ```bash
-  node index.js --url https://example.com
+  node bin/index.js --url https://example.com
   ```
 
 - Generate a report for the default URL (https://www.helptheweb.org) if no option is provided:
 
   ```bash
-  node index.js
+  node bin/index.js
   ```
 
 ## Output
