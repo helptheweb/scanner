@@ -22,10 +22,10 @@ const main = async () => {
   const { url } = argv;
 
   try {
-    if (url) {
+    if (url && new URL(url)) {
       const report = await generateReport(url);
       displayResults(report, url);
-    }
+    } 
   } catch (error) {
     console.error('An error occurred:', error);
   }

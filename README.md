@@ -26,7 +26,7 @@ Before running the tool, make sure you have the following dependencies installed
 To run the Web Accessibility Report Generator, use the following command:
 
 ```bash
-scanner [options]
+scan [options]
 ```
 
 ### Development
