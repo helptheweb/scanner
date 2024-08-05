@@ -30,7 +30,6 @@ node index.js [options]
 ### Options
 
 - `--url` or `-u`: Specify a single URL to generate an accessibility report for.
-- `--sitemap` or `-s`: Specify the URL of a sitemap to generate accessibility reports for multiple URLs.
 - `--help` or `-h`: Display help information about the available options.
 
 ### Examples
@@ -39,12 +38,6 @@ node index.js [options]
 
   ```bash
   node index.js --url https://example.com
-  ```
-
-- Generate reports for multiple URLs from a sitemap:
-
-  ```bash
-  node index.js --sitemap https://example.com/sitemap.xml
   ```
 
 - Generate a report for the default URL (https://www.helptheweb.org) if no option is provided:
@@ -64,8 +57,6 @@ The tool will generate accessibility reports and display them in the console. Fo
   - Impact
   - Help
   - Elements (HTML snippets)
-
-If the `--sitemap` option is used, the tool will generate reports for each URL found in the sitemap.
 
 ## Contributing
 
