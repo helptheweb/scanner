@@ -1,14 +1,14 @@
 {
-  "name": "scanner",
+  "name": "@helptheweb/scanner",
   "version": "0.0.1",
-  "description": "",
+  "description": "CLI app to scan websites and get accessibility violations",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "helptheweb.org",
+  "license": "MIT",
   "devDependencies": {
     "axe-core": "^4.10.0"
   },
@@ -17,5 +17,20 @@
     "chalk": "^5.3.0",
     "puppeteer": "^22.15.0",
     "yargs": "^17.7.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helptheweb/scanner.git"
+  },
+  "keywords": [
+    "axe",
+    "accessibility",
+    "scanner",
+    "cli",
+    "helptheweb"
+  ],
+  "bugs": {
+    "url": "https://github.com/helptheweb/scanner/issues"
+  },
+  "homepage": "https://github.com/helptheweb/scanner#readme"
 }
