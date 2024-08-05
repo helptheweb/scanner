@@ -76,6 +76,8 @@ async function main() {
           console.log('  - HTML:', node.html);
         });
       });
+
+      return report;
     }
   } catch (error) {
     console.error('An error occurred:', error);
