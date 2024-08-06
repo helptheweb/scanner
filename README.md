@@ -15,9 +15,9 @@ Before running the tool, make sure you have the following dependencies installed
 2. Open a terminal and navigate to the project directory.
 3. Run the following command to install the required dependencies:
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 ## Usage
 
