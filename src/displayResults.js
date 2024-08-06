@@ -1,9 +1,10 @@
 import chalk from 'chalk';
 import { formatImpact } from './formatImpact.js';
 
-export const displayResults = (report, url) => {
+export const displayResults = (report) => {
+  console.log('\n\n======================');
   console.log('Accessibility Report:');
-  console.log('URL:', url);
+  console.log('URL:', report.url);
   console.log('Timestamp:', new Date().toISOString());
   console.log('Violations:');
 

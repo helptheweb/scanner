@@ -29,6 +29,12 @@ To run the Web Accessibility Report Generator, use the following command:
 scan [options]
 ```
 
+To output results to a .txt file
+
+```bash
+scan [option] > output.txt
+```
+
 ### Development
 
 To run the Web Accessibility Report Generator, use the following command:
@@ -37,9 +43,16 @@ To run the Web Accessibility Report Generator, use the following command:
 node bin/index.js [options]
 ```
 
+To output results to a .txt file
+
+```bash
+scan [option] > output.txt
+```
+
 ### Options
 
 - `--url` or `-u`: Specify a single URL to generate an accessibility report for.
+- `--xml` or `-x`: Specify a single XML file to scrape and get the sitemap and reports for all pages in sitemap
 - `--help` or `-h`: Display help information about the available options.
 
 ### Examples
