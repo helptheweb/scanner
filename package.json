@@ -1,11 +1,12 @@
 {
   "name": "@helptheweb/scanner",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "CLI app to scan websites and get accessibility violations",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"No test specified\""
+    "test": "echo \"No test specified\"",
+    "start": "node bin/getJSONResults.js"
   },
   "bin": {
     "scan": "bin/index.js"
@@ -13,7 +14,8 @@
   "author": "helptheweb.org",
   "license": "MIT",
   "devDependencies": {
-    "axe-core": "^4.10.0"
+    "axe-core": "^4.10.0",
+    "fs": "^0.0.1-security"
   },
   "dependencies": {
     "axe-puppeteer": "^1.1.1",

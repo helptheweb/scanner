@@ -19,3 +19,41 @@ export const displayResults = (report) => {
     });
   })
 }
+
+export const results = (report) => {
+
+  const violations = generateViolations(report);
+
+  const reportObject = {
+    url: report.url,
+    timestamp: new Date().toISOString(),
+    violations
+  }
+
+  return reportObject;
+};
+
+const generateNodes = (nodes) => {
+  let nodeArray = [];
+  nodes.forEach((node) => {
+    console.log('=', node.html);
+    nodeArray.push(node.html);
+  });
+
+  return nodeArray;
+};
+
+const generateViolations = (report) => {
+
+  let combinedViolations = [];
+  report.violations.forEach((violation, index) => {
+    combinedViolations.push({
+      description: violation.description,
+      formatImpact: violation.impact,
+      help: violation.help,
+      elements: generateNodes(violation.nodes)
+    });
+  });
+
+  return combinedViolations;
+};
