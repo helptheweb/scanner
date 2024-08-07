@@ -2,3 +2,4 @@ bin/getJSONResults.js
 results.json
 *.log
 *.txt
+.DS_Store

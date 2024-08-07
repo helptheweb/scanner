@@ -36,7 +36,6 @@ export const results = (report) => {
 const generateNodes = (nodes) => {
   let nodeArray = [];
   nodes.forEach((node) => {
-    console.log('=', node.html);
     nodeArray.push(node.html);
   });
 

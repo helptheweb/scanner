@@ -3,3 +3,4 @@ node_modules/
 getJSONResults.js
 results.json
 *.txt
+.DS_Store
