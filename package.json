@@ -1,6 +1,6 @@
 {
   "name": "@helptheweb/scanner",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "CLI app to scan websites and get accessibility violations",
   "main": "index.js",
   "type": "module",

@@ -5,7 +5,7 @@ import { getUrlsFromSitemap } from './src/getUrlsFromSitemap.js';
 
 export const scanner = async(url) => {
 
-  let output;
+  let output = [];
 
   if(url && new URL(url)) {
 
@@ -13,11 +13,11 @@ export const scanner = async(url) => {
       const fullSitemap = await getUrlsFromSitemap(url);
       const reports = await generateReports(fullSitemap);
       for(let report of reports) {
-        output = results(report);
+        output.push(results(report));
       }
     } else {
       const report = await generateReport(url);
-      output = results(report);
+      output.push(results(report));
     }
   }
 
