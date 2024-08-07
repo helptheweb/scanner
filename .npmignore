@@ -1,3 +1,4 @@
 bin/getJSONResults.js
 results.json
 *.log
+*.txt

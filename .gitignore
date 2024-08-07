@@ -2,3 +2,4 @@ node_modules/
 *.log
 getJSONResults.js
 results.json
+*.txt

@@ -46,7 +46,7 @@ const generateNodes = (nodes) => {
 const generateViolations = (report) => {
 
   let combinedViolations = [];
-  report.violations.forEach((violation, index) => {
+  report.violations.forEach((violation) => {
     combinedViolations.push({
       description: violation.description,
       formatImpact: violation.impact,
