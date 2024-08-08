@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import { formatImpact } from './formatImpact.js';
+import fs from 'fs';
 
 export const displayResults = (report) => {
   console.log('\n\n======================');
@@ -15,7 +16,7 @@ export const displayResults = (report) => {
     console.log(chalk.bold('Help:') + ' ' + violation.help);
     console.log('Elements:');
     violation.nodes.forEach((node) => {
-      console.log('  - HTML:', node.html);
+      console.log(node.html);
     });
   })
 }
@@ -36,20 +37,25 @@ export const results = (report) => {
 const generateNodes = (nodes) => {
   let nodeArray = [];
   nodes.forEach((node) => {
-    nodeArray.push(node.html);
+    nodeArray.push({
+      source: node.html,
+      failureSummary: node.failureSummary});
   });
 
   return nodeArray;
 };
 
 const generateViolations = (report) => {
-
+  
   let combinedViolations = [];
   report.violations.forEach((violation) => {
     combinedViolations.push({
+      id: violation.id,
       description: violation.description,
-      formatImpact: violation.impact,
+      impact: violation.impact,
+      tags: violation.tags,
       help: violation.help,
+      helpUrl: violation.helpUrl,
       elements: generateNodes(violation.nodes)
     });
   });
