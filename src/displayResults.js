@@ -1,6 +1,5 @@
 import chalk from 'chalk';
 import { formatImpact } from './formatImpact.js';
-import fs from 'fs';
 
 export const displayResults = (report) => {
   console.log('\n\n======================');
