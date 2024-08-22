@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-export const formatImpact = (impact) => {
+export const formatImpact = (impact:string | null | undefined):void => {
 
   let color = 'white';
 
@@ -9,5 +9,6 @@ export const formatImpact = (impact) => {
   if(impact === 'serious') color ='red';
   if(impact === 'critical') color ='bgRed';
 
+  //@ts-ignore
   console.log(chalk.bold('Impact:') + ' ' + chalk[color](impact));
 }

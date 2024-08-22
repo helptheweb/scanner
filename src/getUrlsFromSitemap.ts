@@ -3,27 +3,36 @@ import xml2js from 'xml2js';
 
 const parser = new xml2js.Parser();
 
-async function fetchSitemap(url) {
+const reportError = ({ message }: { message: string }) => {
+	console.error(message);
+}
+
+const getErrorMessage = (error: unknown) => {
+	if (error instanceof Error) return error.message
+	return String(error)
+}
+
+async function fetchSitemap(url:string) {
   try {
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching sitemap from ${url}:`, error.message);
-    return null;
+    reportError({ message: getErrorMessage(error) })
+    return error;
   }
 }
 
-async function parseSitemap(xmlContent) {
+async function parseSitemap(xmlContent:any) {
   try {
     const result = await parser.parseStringPromise(xmlContent);
     return result;
   } catch (error) {
-    console.error('Error parsing XML:', error.message);
-    return null;
+    reportError({ message: getErrorMessage(error) })
+    return error;
   }
 }
 
-async function extractUrls(sitemapUrl, allUrls = new Set()) {
+async function extractUrls(sitemapUrl:string, allUrls = new Set()) {
   const xmlContent = await fetchSitemap(sitemapUrl);
   if (!xmlContent) return allUrls;
 
@@ -34,9 +43,9 @@ async function extractUrls(sitemapUrl, allUrls = new Set()) {
   const sitemapindex = parsedContent.sitemapindex;
 
   if (urlset && urlset.url) {
-    urlset.url.forEach(urlObj => {
-      if (urlObj.loc && urlObj.loc[0]) {
-        allUrls.add(urlObj.loc[0]);
+    urlset.url.forEach((xmlObj: { loc: string[]; }) => {
+      if (xmlObj.loc && xmlObj.loc[0]) {
+        allUrls.add(xmlObj.loc[0]);
       }
     });
   }
@@ -52,13 +61,13 @@ async function extractUrls(sitemapUrl, allUrls = new Set()) {
   return allUrls;
 }
 
-export const getUrlsFromSitemap = async(sitemapUrl) => {
+export const getUrlsFromSitemap = async(sitemapUrl:string): Promise<string[]> => {
 
   console.log('Extracting URLs from sitemap...');
   const urls = await extractUrls(sitemapUrl);
   
   console.log(`Found ${urls.size} unique URLs:`);
-  const urlList = Array.from(urls);
+  const urlList:any = Array.from(urls);
 
   return urlList;
 }

@@ -1,7 +1,9 @@
 import chalk from 'chalk';
-import { formatImpact } from './formatImpact.js';
+import { formatImpact } from './formatImpact';
+import { ViolationInterface, ElementInterface, ReportInterface } from './types';
+import { AxeResults, NodeResult } from 'axe-core';
 
-export const displayResults = (report) => {
+export const displayResults = (report:ReportInterface):void => {
   console.log('\n\n======================');
   console.log('Accessibility Report:');
   console.log('URL:', report.url);
@@ -14,15 +16,15 @@ export const displayResults = (report) => {
     formatImpact(violation.impact);
     console.log(chalk.bold('Help:') + ' ' + violation.help);
     console.log('Elements:');
-    violation.nodes.forEach((node) => {
-      console.log(node.html);
+    violation.elements.forEach((element) => {
+      console.log(element.source);
     });
   })
 }
 
-export const results = (report) => {
+export const formatResults = (report:AxeResults):ReportInterface => {
 
-  const violations = generateViolations(report);
+  const violations:ViolationInterface[] = generateViolations(report);
 
   const reportObject = {
     url: report.url,
@@ -33,20 +35,20 @@ export const results = (report) => {
   return reportObject;
 };
 
-const generateNodes = (nodes) => {
-  let nodeArray = [];
-  nodes.forEach((node) => {
-    nodeArray.push({
-      source: node.html,
-      failureSummary: node.failureSummary});
+const generateElements = (elements:NodeResult[]):ElementInterface[] => {
+  let elementArray:ElementInterface[] = [];
+  elements.forEach((element) => {
+    elementArray.push({
+      source: element.html,
+      failureSummary: element.failureSummary});
   });
 
-  return nodeArray;
+  return elementArray;
 };
 
-const generateViolations = (report) => {
+const generateViolations = (report:AxeResults):ViolationInterface[] => {
   
-  let combinedViolations = [];
+  let combinedViolations:ViolationInterface[] = [];
   report.violations.forEach((violation) => {
     combinedViolations.push({
       id: violation.id,
@@ -55,7 +57,7 @@ const generateViolations = (report) => {
       tags: violation.tags,
       help: violation.help,
       helpUrl: violation.helpUrl,
-      elements: generateNodes(violation.nodes)
+      elements: generateElements(violation.nodes)
     });
   });
 

@@ -7,7 +7,7 @@ This is a command-line tool that generates web accessibility reports for a singl
 Before running the tool, make sure you have the following dependencies installed:
 
 - Node.js (version 20 or above)
-- npm (Node Package Manager)
+- Bun
 
 ## Installation
 
@@ -16,58 +16,18 @@ Before running the tool, make sure you have the following dependencies installed
 3. Run the following command to install the required dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 ## Usage
 
-### From package
+First, generate the dist files with `npm run build`
 
-To run the Web Accessibility Report Generator, use the following command:
+This should output the compiled files to the `dist` directory
 
-```bash
-scan [options]
-```
+Afterwards, use the sandbox file to generate anything you'll need. By default, we'll get the entire set of results from helptheweb.org
 
-To output results to a .txt file
-
-```bash
-scan [option] > output.txt
-```
-
-### Development
-
-To run the Web Accessibility Report Generator, use the following command:
-
-```bash
-node bin/index.js [options]
-```
-
-To output results to a .txt file
-
-```bash
-scan [option] > output.txt
-```
-
-### Options
-
-- `--url` or `-u`: Specify a single URL to generate an accessibility report for.
-- `--xml` or `-x`: Specify a single XML file to scrape and get the sitemap and reports for all pages in sitemap
-- `--help` or `-h`: Display help information about the available options.
-
-### Examples
-
-- Generate a report for a single URL:
-
-  ```bash
-  node bin/index.js --url https://example.com
-  ```
-
-- Generate a report for the default URL (https://www.helptheweb.org) if no option is provided:
-
-  ```bash
-  node bin/index.js
-  ```
+`node bin/sandbox.js`
 
 ## Output
 

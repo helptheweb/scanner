@@ -1,5 +1,12 @@
-bin/getJSONResults.js
+bin/sandbox.js
 results.json
 *.log
 *.txt
 .DS_Store
+.gitignore
+.nvmrc
+build.mjs
+bun.lockb
+eslint.config.js
+LICENSE
+tsconfig.json

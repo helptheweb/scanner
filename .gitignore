@@ -4,3 +4,5 @@ getJSONResults.js
 results.json
 *.txt
 .DS_Store
+dist
+bin/getJSONResults.ts

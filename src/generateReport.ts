@@ -1,7 +1,7 @@
 import { AxePuppeteer } from 'axe-puppeteer';
 import puppeteer from 'puppeteer';
 
-export const generateReport = async(url) => {
+export const generateReport = async(url:string): Promise<any> => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
@@ -13,7 +13,7 @@ export const generateReport = async(url) => {
   return results;
 }
 
-export const generateReports = async(urls) => {
+export const generateReports = async(urls:string[]): Promise<any[]>=> {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   let combinedResults = [];
