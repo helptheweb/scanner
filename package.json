@@ -1,6 +1,6 @@
 {
   "name": "@helptheweb/scanner",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "service to scan websites and get accessibility violations",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -9,7 +9,8 @@
   "scripts": {
     "clean": "rimraf dist/**/*",
     "build": "tsup",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "helptheweb.org",
   "license": "MIT",
