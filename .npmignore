@@ -10,3 +10,4 @@ bun.lockb
 eslint.config.js
 LICENSE
 tsconfig.json
+bin

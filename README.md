@@ -7,7 +7,7 @@ This is a command-line tool that generates web accessibility reports for a singl
 Before running the tool, make sure you have the following dependencies installed:
 
 - Node.js (version 20 or above)
-- Bun
+- npm
 
 ## Installation
 
@@ -16,7 +16,7 @@ Before running the tool, make sure you have the following dependencies installed
 3. Run the following command to install the required dependencies:
 
 ```bash
-bun install
+npm install
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ This should output the compiled files to the `dist` directory
 
 Afterwards, use the sandbox file to generate anything you'll need. By default, we'll get the entire set of results from helptheweb.org
 
-`node bin/sandbox.js`
+`node bin/test.js`
 
 ## Output
 

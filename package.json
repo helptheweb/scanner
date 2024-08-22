@@ -2,38 +2,33 @@
   "name": "@helptheweb/scanner",
   "version": "2.0.0",
   "description": "service to scan websites and get accessibility violations",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "bun build --target=node ./src/index.ts --outfile=dist/index.js && bun run build:types",
-    "build:types": "bun run build.mjs",
+    "clean": "rimraf dist/**/*",
+    "build": "tsup",
     "lint": "eslint"
-  },
-  "bin": {
-    "scan": "bin/index.js"
   },
   "author": "helptheweb.org",
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.8.0",
     "@types/xml2js": "^0.4.14",
-    "@types/yargs": "^17.0.33",
-    "axe-core": "^4.10.0",
     "eslint": "^9.8.0",
-    "globals": "^15.9.0",
-    "@types/bun": "^1.1.6",
-    "rimraf": "^6.0.1"
+    "globals": "^15.9.0"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "axe-core": "^4.10.0",
     "axe-puppeteer": "^1.1.1",
     "axios": "^1.7.4",
-    "bun-plugin-dts": "^0.2.3",
     "chalk": "^5.3.0",
     "puppeteer": "^22.15.0",
+    "tsup": "^8.2.4",
     "tsx": "^4.17.0",
-    "typescript": "^5.5.4",
+    "typescript": "^5.0.0",
     "xml2js": "^0.6.2",
     "yargs": "^17.7.2"
   },
