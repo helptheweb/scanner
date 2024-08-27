@@ -1,6 +1,6 @@
 {
   "name": "@helptheweb/scanner",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "service to scan websites and get accessibility violations",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -32,14 +32,14 @@
     "rimraf": "^6.0.1"
   },
   "dependencies": {
+    "@axe-core/puppeteer": "^4.10.0",
     "@types/axios": "^0.14.0",
-    "axe-core": "^4.10.0",
     "axe-puppeteer": "^1.1.1",
     "axios": "^1.7.5",
     "puppeteer": "^23.2.0",
     "tsup": "^8.2.4",
     "tsx": "^4.17.0",
-    "typescript": "^5.5.4",
+    "typescript": "^5.0.0",
     "xml2js": "^0.6.2",
     "yargs": "^17.7.2"
   },

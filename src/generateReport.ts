@@ -1,4 +1,4 @@
-import { AxePuppeteer } from 'axe-puppeteer';
+import { AxePuppeteer } from '@axe-core/puppeteer';
 import puppeteer from 'puppeteer';
 
 export const generateReport = async(url:string): Promise<any> => {
