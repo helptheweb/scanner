@@ -1,10 +1,8 @@
-import { ViolationInterface, ElementInterface, ReportInterface } from './types';
-import { AxeResults, NodeResult } from 'axe-core';
+import type { ViolationInterface, ElementInterface, ReportInterface } from './types';
+import type { AxeResults, NodeResult } from 'axe-core';
 
-export const formatResults = (report:AxeResults):ReportInterface => {
-
+export const displayResults = (report:AxeResults):ReportInterface => {
   const violations:ViolationInterface[] = generateViolations(report);
-
   const reportObject = {
     url: report.url,
     timestamp: new Date().toISOString(),
@@ -26,7 +24,6 @@ const generateElements = (elements:NodeResult[]):ElementInterface[] => {
 };
 
 const generateViolations = (report:AxeResults):ViolationInterface[] => {
-  
   let combinedViolations:ViolationInterface[] = [];
   report.violations.forEach((violation) => {
     combinedViolations.push({
