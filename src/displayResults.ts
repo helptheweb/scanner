@@ -1,8 +1,9 @@
 import type { ViolationInterface, ElementInterface, ReportInterface } from './types';
 import type { AxeResults, NodeResult } from 'axe-core';
 
-export const displayResults = (report:AxeResults):ReportInterface => {
-  const violations:ViolationInterface[] = generateViolations(report);
+// Generates the return value
+export const displayResults = (report: AxeResults): ReportInterface => {
+  const violations: ViolationInterface[] = generateViolations(report);
   const reportObject = {
     url: report.url,
     timestamp: new Date().toISOString(),
@@ -12,19 +13,23 @@ export const displayResults = (report:AxeResults):ReportInterface => {
   return reportObject;
 };
 
-const generateElements = (elements:NodeResult[]):ElementInterface[] => {
-  let elementArray:ElementInterface[] = [];
+// Generates the "Elements" (source HTML + Summary of error)
+const generateElements = (elements: NodeResult[]): ElementInterface[] => {
+  let elementArray: ElementInterface[] = [];
   elements.forEach((element) => {
     elementArray.push({
       source: element.html,
-      failureSummary: element.failureSummary});
+      failureSummary: element.failureSummary
+    });
   });
 
   return elementArray;
 };
 
-const generateViolations = (report:AxeResults):ViolationInterface[] => {
-  let combinedViolations:ViolationInterface[] = [];
+// Generates the overall "Violations" from the Axe Results object
+// If there are new values that are needed by the frontend, this is probably where they would need to get added
+const generateViolations = (report: AxeResults): ViolationInterface[] => {
+  let combinedViolations: ViolationInterface[] = [];
   report.violations.forEach((violation) => {
     combinedViolations.push({
       id: violation.id,

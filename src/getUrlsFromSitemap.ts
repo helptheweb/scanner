@@ -3,16 +3,19 @@ import xml2js from 'xml2js';
 
 const parser = new xml2js.Parser();
 
+// Log the errors
 const reportError = ({ message }: { message: string }) => {
-	console.error(message);
+  console.error(message);
 }
 
+// Safe typing for erroring
 const getErrorMessage = (error: unknown) => {
-	if (error instanceof Error) return error.message
-	return String(error)
+  if (error instanceof Error) return error.message
+  return String(error)
 }
 
-async function fetchSitemap(url:string) {
+// Get the sitemap from the XML url
+async function fetchSitemap(url: string) {
   try {
     const response = await axios.get(url);
     return response.data;
@@ -22,7 +25,8 @@ async function fetchSitemap(url:string) {
   }
 }
 
-async function parseSitemap(xmlContent:any) {
+// Parse the XML file to extract all of the "actual" URLs
+async function parseSitemap(xmlContent: any) {
   try {
     const result = await parser.parseStringPromise(xmlContent);
     return result;
@@ -32,7 +36,8 @@ async function parseSitemap(xmlContent:any) {
   }
 }
 
-async function extractUrls(sitemapUrl:string, allUrls = new Set()) {
+// If the supplied URL is actually XML, parse through it. Otherwise, supply an array of URLs
+async function extractUrls(sitemapUrl: string, allUrls = new Set()) {
   const xmlContent = await fetchSitemap(sitemapUrl);
   if (!xmlContent) return allUrls;
 
@@ -42,6 +47,7 @@ async function extractUrls(sitemapUrl:string, allUrls = new Set()) {
   const urlset = parsedContent.urlset;
   const sitemapindex = parsedContent.sitemapindex;
 
+  // We're looking for the <loc> object in the XML files since those are the actual URLs
   if (urlset && urlset.url) {
     urlset.url.forEach((xmlObj: { loc: string[]; }) => {
       if (xmlObj.loc && xmlObj.loc[0]) {
@@ -61,13 +67,14 @@ async function extractUrls(sitemapUrl:string, allUrls = new Set()) {
   return allUrls;
 }
 
-export const getUrlsFromSitemap = async(sitemapUrl:string): Promise<string[]> => {
+// Exported function to get all of the "actual" URLs from the sitemap (XML file)
+export const getUrlsFromSitemap = async (sitemapUrl: string): Promise<string[]> => {
 
   console.log('Extracting URLs from sitemap...');
   const urls = await extractUrls(sitemapUrl);
-  
+
   console.log(`Found ${urls.size} unique URLs:`);
-  const urlList:any = Array.from(urls);
+  const urlList: string[] = Array.from(urls.toString());
 
   return urlList;
 }
