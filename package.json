@@ -1,6 +1,6 @@
 {
   "name": "@helptheweb/scanner",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "service to scan websites and get accessibility violations",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
