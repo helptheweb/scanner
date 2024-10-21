@@ -12,3 +12,4 @@ LICENSE
 tsconfig.json
 bin
 output.json
+server

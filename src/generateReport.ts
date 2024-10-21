@@ -1,16 +1,11 @@
 import { AxePuppeteer } from '@axe-core/puppeteer';
-import puppeteer from 'puppeteer';
-
-import locateChrome from 'locate-chrome';
+import puppeteer, { type LaunchOptions } from 'puppeteer';
 
 // Launches Puppeteer and runs the Axe Reporter for a SINGLE URL
-export const generateReport = async (url: string): Promise<any> => {
-
-  const executablePath: string = await new Promise(resolve => locateChrome((arg: any) => resolve(arg))) || '';
+export const generateReport = async (url: string, puppeteerLaunchOptions?: LaunchOptions): Promise<any> => {
 
   const browser = await puppeteer.launch({
-    executablePath,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    ...puppeteerLaunchOptions
   });
   const page = await browser.newPage();
 
@@ -23,13 +18,10 @@ export const generateReport = async (url: string): Promise<any> => {
 }
 
 // If the supplied URL is an array of URLs, parse through it
-export const generateMultipleReports = async (urls: string[]): Promise<any[]> => {
-
-  const executablePath: string = await new Promise(resolve => locateChrome((arg: any) => resolve(arg))) || '';
+export const generateMultipleReports = async (urls: string[], puppeteerLaunchOptions?: LaunchOptions): Promise<any[]> => {
 
   const browser = await puppeteer.launch({
-    executablePath,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    ...puppeteerLaunchOptions
   });
   const page = await browser.newPage();
   let combinedResults = [];
