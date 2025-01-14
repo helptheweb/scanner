@@ -7,3 +7,4 @@ results.json
 dist
 bin/getJSONResults.ts
 output.json
+input.js

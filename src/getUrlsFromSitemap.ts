@@ -1,64 +1,88 @@
 import axios from 'axios';
 import xml2js from 'xml2js';
 
+// Type definitions
+interface SitemapUrl {
+  loc: string[];
+  lastmod?: string[];
+  changefreq?: string[];
+  priority?: string[];
+}
+
+interface Sitemap {
+  loc: string[];
+}
+
+interface UrlSet {
+  url: SitemapUrl[];
+}
+
+interface SitemapIndex {
+  sitemap: Sitemap[];
+}
+
+interface ParsedXML {
+  urlset?: UrlSet;
+  sitemapindex?: SitemapIndex;
+}
+
+interface ErrorMessage {
+  message: string;
+}
+
 const parser = new xml2js.Parser();
 
-// Log the errors
-const reportError = ({ message }: { message: string }) => {
+const reportError = ({ message }: ErrorMessage): void => {
   console.error(message);
 }
 
-// Safe typing for erroring
-const getErrorMessage = (error: unknown) => {
-  if (error instanceof Error) return error.message
-  return String(error)
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof Error) return error.message;
+  return String(error);
 }
 
-// Get the sitemap from the XML url
-async function fetchSitemap(url: string) {
+async function fetchSitemap(url: string): Promise<string | Error> {
   try {
-    const response = await axios.get(url);
+    const response = await axios.get<string>(url);
     return response.data;
   } catch (error) {
-    reportError({ message: getErrorMessage(error) })
-    return error;
+    reportError({ message: getErrorMessage(error) });
+    return error as Error;
   }
 }
 
-// Parse the XML file to extract all of the "actual" URLs
-async function parseSitemap(xmlContent: any) {
+async function parseSitemap(xmlContent: string): Promise<ParsedXML | Error> {
   try {
     const result = await parser.parseStringPromise(xmlContent);
-    return result;
+    return result as ParsedXML;
   } catch (error) {
-    reportError({ message: getErrorMessage(error) })
-    return error;
+    reportError({ message: getErrorMessage(error) });
+    return error as Error;
   }
 }
 
-// If the supplied URL is actually XML, parse through it. Otherwise, supply an array of URLs
-async function extractUrls(sitemapUrl: string, allUrls = new Set()) {
+async function extractUrls(sitemapUrl: string, allUrls: Set<string> = new Set()): Promise<Set<string>> {
   const xmlContent = await fetchSitemap(sitemapUrl);
-  if (!xmlContent) return allUrls;
+  if (xmlContent instanceof Error) return allUrls;
 
   const parsedContent = await parseSitemap(xmlContent);
-  if (!parsedContent) return allUrls;
+  if (parsedContent instanceof Error) return allUrls;
 
-  const urlset = parsedContent.urlset;
-  const sitemapindex = parsedContent.sitemapindex;
+  const { urlset, sitemapindex } = parsedContent;
 
-  // We're looking for the <loc> object in the XML files since those are the actual URLs
-  if (urlset && urlset.url) {
-    urlset.url.forEach((xmlObj: { loc: string[]; }) => {
-      if (xmlObj.loc && xmlObj.loc[0]) {
-        allUrls.add(xmlObj.loc[0]);
+  // Handle urlset URLs
+  if (urlset?.url && Array.isArray(urlset.url)) {
+    urlset.url.forEach((url: SitemapUrl) => {
+      if (url.loc?.[0]) {
+        allUrls.add(url.loc[0]);
       }
     });
   }
 
-  if (sitemapindex && sitemapindex.sitemap) {
+  // Handle sitemapindex URLs
+  if (sitemapindex?.sitemap && Array.isArray(sitemapindex.sitemap)) {
     for (const sitemap of sitemapindex.sitemap) {
-      if (sitemap.loc && sitemap.loc[0]) {
+      if (sitemap.loc?.[0]) {
         await extractUrls(sitemap.loc[0], allUrls);
       }
     }
@@ -67,14 +91,10 @@ async function extractUrls(sitemapUrl: string, allUrls = new Set()) {
   return allUrls;
 }
 
-// Exported function to get all of the "actual" URLs from the sitemap (XML file)
 export const getUrlsFromSitemap = async (sitemapUrl: string): Promise<string[]> => {
-
   console.log('Extracting URLs from sitemap...');
   const urls = await extractUrls(sitemapUrl);
-
   console.log(`Found ${urls.size} unique URLs:`);
-  const urlList: string[] = Array.from(urls.toString());
-
+  const urlList = Array.from(urls);
   return urlList;
 }

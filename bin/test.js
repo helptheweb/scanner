@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import { scanner } from "../dist/index.js";
+import { arrayScanner, scanner } from "../dist/index.js";
 import fs from 'fs';
 
 const main = async () => {
